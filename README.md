@@ -4,8 +4,8 @@
 
 | Name | Student Id| Github username | 
 | ------------- | ------------- | ------------- | 
-| Sarah Amri| 40210908   | adssib | 
-| Adib Akkari   | 40216815  | | 
+| Sarah Amri| 40210908   | kokkuri3 | 
+| Adib Akkari   | 40216815  | adssib | 
 | Ayesha Mahmood| 40189093 | | 
 | Safaa Kentaoui | 40228872 | |  
 | Amine Arrachid | 40263585 | | 
