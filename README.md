@@ -13,3 +13,26 @@
 
 
 [Phase 2 Google Doc](https://docs.google.com/document/d/1i2POawuKCG7FH_M4zRJQXd_zF8gFbB9sYsheUU6gsiQ/edit?usp=sharing)
+
+# How to Run?
+
+1) Clone the repository using 
+
+```Bash
+  git clone https://github.com/adssib/FifthDay343.git
+```
+
+2) Install Node packages using the Setup.bat
+
+```Bash
+  cd FifthDay343
+  Setup.bat
+```
+
+3) After installing the needed packages, create under **Server** folder a .env file like the following: 
+
+```Bash
+  MONGO_URI="MongoDBConnectionURL"
+```
+
+of course replace it by the correct URL to be able to connect to the database
