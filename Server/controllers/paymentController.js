@@ -24,7 +24,7 @@ const processPayment = (req, res) => {
     deliveryRequest.name = name;
     deliveryRequest.email = email;
     deliveryRequest.phone = phone;
-    deliveryRequest.paymentStatus = 'Completed';
+    deliveryRequest.paymentStatus = 'Payed';
     deliveryRequest.status = 'Pending';
 
     console.log('Updated Delivery Request:', deliveryRequest);
