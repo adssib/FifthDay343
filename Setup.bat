@@ -2,7 +2,7 @@
 cd Client
 npm install
 cd ..
-cd Server
+cd server
 npm install
 cd ..
 echo All dependencies installed!
