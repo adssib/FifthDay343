@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const DeliveryForm = () => {
     const [pickupLocation, setPickupLocation] = useState('');
@@ -19,6 +20,15 @@ const DeliveryForm = () => {
             weight,
             shippingMethod,
         };
+
+        try {
+            const response = await axios.post('http://localhost:5000/api/create-request', deliveryData);
+            const { trackingId, quote } = response.data;
+            navigate('/quote', { state: { trackingId, quote } });
+
+        } catch (error) {
+            alert("There was an error creating your delivery request. Please try again.");
+        }
     };
 
     return (
