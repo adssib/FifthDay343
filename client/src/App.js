@@ -6,6 +6,7 @@ import DeliveryForm from './components/DeliveryForm';
 import QuotePage from './components/QuotePage';
 import PaymentPage from './components/PaymentPage';
 import SuccessPage from './components/SuccessPage';
+import TrackPackage from './components/TrackPackage';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/quote" element={<QuotePage />} />
         <Route path="/payment/pay" element={<PaymentPage />} />
         <Route path="/success" element={<SuccessPage />} />
+        <Route path="/track-package" element={<TrackPackage />} />
 
       </Routes>
 
