@@ -5,7 +5,7 @@ import MainPage from './components/MainPage';
 import DeliveryForm from './components/DeliveryForm';
 import QuotePage from './components/QuotePage';
 import PaymentPage from './components/PaymentPage';
-
+import SuccessPage from './components/SuccessPage';
 
 
 const App = () => {
@@ -18,6 +18,7 @@ const App = () => {
         <Route path="/create-request" element={<DeliveryForm />} />
         <Route path="/quote" element={<QuotePage />} />
         <Route path="/payment/pay" element={<PaymentPage />} />
+        <Route path="/success" element={<SuccessPage />} />
 
       </Routes>
 
