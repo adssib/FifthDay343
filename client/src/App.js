@@ -7,6 +7,7 @@ import QuotePage from './components/QuotePage';
 import PaymentPage from './components/PaymentPage';
 import SuccessPage from './components/SuccessPage';
 import TrackPackage from './components/TrackPackage';
+import Chatbot from './components/Chatbot';
 
 
 const App = () => {
@@ -23,7 +24,7 @@ const App = () => {
         <Route path="/track-package" element={<TrackPackage />} />
 
       </Routes>
-
+      <Chatbot />
     </Router>
   );
 };
