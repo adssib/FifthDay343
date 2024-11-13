@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 const PaymentPage = () => {
   const { state } = useLocation();
@@ -31,8 +32,25 @@ const PaymentPage = () => {
       paymentMethod
     };
 
-    console.log('Sending payment details:', paymentDetails);  
+    console.log('Sending payment details:', paymentDetails);
+    try {
+      const response = await axios.post('http://localhost:5000/api/payment/pay', paymentDetails);
 
+      if (response.status === 200) {
+        setStatus("Payment successful!");
+        navigate('/success', { state: { trackingId: state?.trackingId } });
+      } else {
+        setStatus(`Error processing payment. Status code: ${response.status}`);
+      }
+    } catch (error) {
+      if (error.response) {
+        setStatus(`Error processing payment. Status code: ${error.response.status}`);
+      } else if (error.request) {
+        setStatus('No response received from server.');
+      } else {
+        setStatus('Error setting up request.');
+      }
+    }
   };
 
   return (
