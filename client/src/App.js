@@ -4,6 +4,8 @@ import Header from './components/Header';
 import MainPage from './components/MainPage';
 import DeliveryForm from './components/DeliveryForm';
 import QuotePage from './components/QuotePage';
+import PaymentPage from './components/PaymentPage';
+
 
 
 const App = () => {
@@ -15,6 +17,7 @@ const App = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="/create-request" element={<DeliveryForm />} />
         <Route path="/quote" element={<QuotePage />} />
+        <Route path="/payment/pay" element={<PaymentPage />} />
 
       </Routes>
 
