@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';  // Import the Header component
+import Header from './components/Header';
 import MainPage from './components/MainPage';
+import DeliveryForm from './components/DeliveryForm';
+
 
 const App = () => {
   return (
@@ -10,6 +12,7 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/create-request" element={<DeliveryForm />} />
       </Routes>
 
     </Router>
