@@ -9,6 +9,7 @@ const TrackPackage = () => {
     const handleTrack = async () => {
         try {
             const response = await axios.get(`http://localhost:5000/api/track/${trackingId}`);
+            console.log('Response data:', response.data);
             setPackageDetails(response.data);
             setError('');
         } catch (error) {
@@ -16,6 +17,7 @@ const TrackPackage = () => {
             setPackageDetails(null);
         }
     };
+
 
     return (
         <div>
@@ -42,19 +44,23 @@ const TrackPackage = () => {
                         <tbody>
                             <tr>
                                 <td><strong>Name:</strong></td>
-                                <td>{packageDetails.name}</td>
+                                <td>{packageDetails.customer.name}</td>
                             </tr>
                             <tr>
                                 <td><strong>Email:</strong></td>
-                                <td>{packageDetails.email}</td>
+                                <td>{packageDetails.customer.email}</td>
                             </tr>
                             <tr>
                                 <td><strong>Phone:</strong></td>
-                                <td>{packageDetails.phone}</td>
+                                <td>{packageDetails.customer.phone}</td>
                             </tr>
                             <tr>
                                 <td><strong>Quote:</strong></td>
                                 <td>${packageDetails.quote}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Payment Method:</strong></td>
+                                <td>{packageDetails.payment.paymentMethod}</td>
                             </tr>
                             <tr>
                                 <td><strong>Payment Status:</strong></td>
