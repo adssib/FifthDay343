@@ -1,4 +1,4 @@
-const { deliveryRequests } = require('../controllers/deliveryController');
+const { deliveryRequests } = require('../controllers/deliveryController');  // Import the delivery requests
 
 // Process payment and update the delivery request
 const processPayment = (req, res) => {
@@ -12,7 +12,7 @@ const processPayment = (req, res) => {
     }
 
     // Find the delivery request by trackingId
-    const deliveryRequest = deliveryRequests.find(request => request.trackingId === trackingId);
+    const deliveryRequest = deliveryRequests.find(request => request.id === trackingId);
 
     console.log('Found delivery request:', deliveryRequest);
 
@@ -20,12 +20,18 @@ const processPayment = (req, res) => {
         return res.status(404).json({ message: 'Delivery request not found' });
     }
 
-    // Update the delivery request with payment info
-    deliveryRequest.name = name;
-    deliveryRequest.email = email;
-    deliveryRequest.phone = phone;
-    deliveryRequest.paymentStatus = 'Payed';
-    deliveryRequest.status = 'Pending';
+    // Update customer details
+    deliveryRequest.customer.name = name;
+    deliveryRequest.customer.email = email;
+    deliveryRequest.customer.phone = phone;
+
+    // Update payment method and payment status
+    deliveryRequest.payment.paymentMethod = paymentMethod;
+    deliveryRequest.payment.status = 'Paid';  // Assuming successful payment
+
+    // Update payment status and delivery request status
+    deliveryRequest.paymentStatus = 'Paid';
+    deliveryRequest.tracking.status = 'Pending';
 
     console.log('Updated Delivery Request:', deliveryRequest);
 
