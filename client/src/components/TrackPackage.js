@@ -20,7 +20,7 @@ const TrackPackage = () => {
 
 
     return (
-        <div>
+        <div className='normal-div'>
             <h2>Track Your Package</h2>
             <input
                 type="text"

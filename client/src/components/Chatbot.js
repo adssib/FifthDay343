@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import '../styles/Chatbot.css';
 
 const Chatbot = () => {
     const [messages, setMessages] = useState([]);
@@ -69,7 +70,7 @@ const Chatbot = () => {
 
             {/* Chatbot button */}
             {!isOpen && (
-                <button onClick={handleToggleChatbot}className="chatbot-toggle-btn">
+                <button onClick={handleToggleChatbot} className="chatbot-toggle-btn">
                     Chat
                 </button>
             )}

@@ -32,7 +32,7 @@ const DeliveryForm = () => {
     };
 
     return (
-        <div>
+        <div className='forms'>
             <h2>Delivery Request Form</h2>
             <form onSubmit={handleSubmit}>
                 <input
@@ -52,18 +52,21 @@ const DeliveryForm = () => {
                     value={dimensions.length}
                     onChange={(e) => setDimensions({ ...dimensions, length: e.target.value })}
                     placeholder="Length"
+                    className="side-by-side"
                 />
                 <input
                     type="number"
                     value={dimensions.width}
                     onChange={(e) => setDimensions({ ...dimensions, width: e.target.value })}
                     placeholder="Width"
+                    className="side-by-side"
                 />
                 <input
                     type="number"
                     value={dimensions.height}
                     onChange={(e) => setDimensions({ ...dimensions, height: e.target.value })}
                     placeholder="Height"
+                    className="side-by-side"
                 />
                 <input
                     type="number"
@@ -78,8 +81,8 @@ const DeliveryForm = () => {
                     <option value="standard">Standard</option>
                     <option value="express">Express</option>
                 </select>
-                <button onClick={() => navigate('/')}>Back</button>
-                <button type="submit">Get Quote</button>
+                <button onClick={() => navigate('/')} className='back-button'>Back</button>
+                <button type="submit" className='next-button'>Get Quote</button>
             </form>
         </div>
     );

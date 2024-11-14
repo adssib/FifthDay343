@@ -54,7 +54,7 @@ const PaymentPage = () => {
   };
 
   return (
-    <div>
+    <div className='normal-div'>
       <h2>Payment</h2>
       <form onSubmit={handlePayment}>
         <div>

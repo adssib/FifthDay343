@@ -5,7 +5,7 @@ const SuccessPage = () => {
   const { state } = useLocation();
 
   return (
-    <div>
+    <div className='normal-div'>
       <h2>Payment Successful</h2>
       <p>Tracking ID: {state.trackingId}</p>
       <p>Your package is on its way!</p>
