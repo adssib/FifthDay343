@@ -38,11 +38,11 @@
 }
 
 @font-face {
-  font-family: 'SourGummy';
-  src: url('/fonts/SourGummy-VariableFont_wdth,wght.ttf') format('truetype');
+  font-family: 'PlayfairDisplay';
+  src: url('/fonts/PlayfairDisplay,wght.ttf') format('truetype');
 }
 
 body {
-  font-family: 'SourGummy', sans-serif;
+  font-family: 'PlayfairDisplay', sans-serif;
 }
 
