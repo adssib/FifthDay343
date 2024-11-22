@@ -1,0 +1,14 @@
+h2 {
+    font-family: 'SourGummy', sans-serif;
+    color: #1700e5;
+    text-align: center;
+}
+
+button {
+    background-color: rgb(0, 35, 175);
+    color: whitesmoke;
+}
+
+button:hover {
+    background-color: rgb(1, 18, 84);
+}

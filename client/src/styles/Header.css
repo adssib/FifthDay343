@@ -1,0 +1,16 @@
+.header {
+    background-color: rgb(255, 217, 0);
+    text-align: center;
+    padding: 20px;
+}
+
+.title h1 {
+    color: rgb(0, 35, 175);
+    font-size: 5rem;
+    margin: 0;
+    font-family: 'SourGummy', sans-serif;
+}
+
+.title {
+    text-decoration: none;
+}

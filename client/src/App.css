@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: 'SourGummy';
+  src: url('/fonts/SourGummy-VariableFont_wdth,wght.ttf') format('truetype');
+}
+
+body {
+  font-family: 'SourGummy', sans-serif;
+}
+

@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/MainPage.css'
 
 const MainPage = () => {
   return (
     <div className="main-page-container">
-      <button><Link to="/create-request">Create Delivery Request and Get a Quote</Link></button>
-      <button><Link to="/track-package">Track Your Package</Link>
-      </button>
+      <div className="buttons-container">
+        <button><Link to="/create-request">Rate & Ship</Link></button>
+        <button><Link to="/track-package">Track</Link></button>
+        </div>
+      <h2>Fast On Track</h2>
     </div>
   );
 };
