@@ -22,7 +22,7 @@ const DeliveryForm = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/api/create-request', deliveryData);
+            const response = await axios.post('http://localhost:5002/api/create-request', deliveryData);
             const { trackingId, quote } = response.data;
             navigate('/quote', { state: { trackingId, quote } });
 

@@ -34,7 +34,7 @@ const PaymentPage = () => {
 
     console.log('Sending payment details:', paymentDetails);
     try {
-      const response = await axios.post('http://localhost:5000/api/payment/pay', paymentDetails);
+      const response = await axios.post('http://localhost:5002/api/payment/pay', paymentDetails);
 
       if (response.status === 200) {
         setStatus("Payment successful!");
