@@ -88,7 +88,7 @@ button {
   border: none;
   border-radius: 4px;
   transition: background-color 0.3s ease;
-  font-family: 'SourGummy', sans-serif;
+  font-family: 'PlayfairDisplay', sans-serif;
 }
 
 button:hover {

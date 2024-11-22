@@ -6,7 +6,7 @@
     height: 100vh; 
     text-align: center; 
     
-    font-family: 'SourGummy', sans-serif;
+    font-family: 'PlayfairDisplay', sans-serif;
     font-size: 2rem;
 }
 
@@ -15,7 +15,7 @@
     color: whitesmoke; 
     width: 150px;
     height: 150px;
-    font-family: 'SourGummy', sans-serif;
+    font-family: 'PlayfairDisplay', sans-serif;
     margin: 0;
     justify-content: center;
     text-align: center;
@@ -47,7 +47,7 @@
 }
 
 @font-face {
-    font-family: 'SourGummy';
-    src: url('../fonts/SourGummy-VariableFont_wdth,wght.ttf') format('truetype');
+    font-family: 'PlayfairDisplay';
+    src: url('../fonts/PlayfairDisplay-VariableFont_wdth,wght.ttf') format('truetype');
   }
   
