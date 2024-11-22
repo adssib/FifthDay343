@@ -12,8 +12,9 @@
 | Younes Bouhaba | 40205816 | younesbhb| 
 
 
-[Phase 2 Google Doc](https://docs.google.com/document/d/1i2POawuKCG7FH_M4zRJQXd_zF8gFbB9sYsheUU6gsiQ/edit?usp=sharing)
 [Notes on the things we need to implement](https://docs.google.com/document/d/1_56b5Tw7WpXRsGlgWD4dNUfJ6ctPsxhLtmP1D6x7DXI/edit?usp=sharing)
+
+[Phase 2 Google Doc](https://docs.google.com/document/d/1i2POawuKCG7FH_M4zRJQXd_zF8gFbB9sYsheUU6gsiQ/edit?usp=sharing)
 
 # How to Run?
 
