@@ -1,3 +1,5 @@
+const QuoteCalculator = require('../services/QuoteCalculator');
+
 class DeliveryRequest {
     constructor({
         id,
@@ -24,10 +26,7 @@ class DeliveryRequest {
     }
 
     calculateQuote() {
-        const basePrice = 10;  // Base price
-        const weightCharge = this.weight * 2;  // $2 per kg
-        const shippingCharge = this.shippingMethod === 'Express' ? 20 : 10;  // $20 for express, $10 for standard
-        return basePrice + weightCharge + shippingCharge;
+        return QuoteCalculator.calculateQuote(this.weight, this.shippingMethod);
     }
 
     updatePaymentStatus(status) {
