@@ -16,6 +16,14 @@ const createDeliveryRequest = (req, res) => {
         return res.status(400).json({ message: "All fields are required" });
     }
 
+    // Validate locations
+    if (
+        !pickupLocation.lat || !pickupLocation.lng || 
+        !dropoffLocation.lat || !dropoffLocation.lng
+    ) {
+        return res.status(400).json({ message: "Invalid coordinates for pickup or dropoff location" });
+    }
+
     // Validate dimensions
     if (!dimensions.length || !dimensions.width || !dimensions.height) {
         return res.status(400).json({ message: "Invalid dimensions provided" });
@@ -93,7 +101,7 @@ const getTrackingStatus = (req, res) => {
         status: deliveryRequest.tracking.status,
         estimatedArrival: deliveryRequest.tracking.estimatedArrival,
         quote: deliveryRequest.calculateQuote(),
-    });
+    }); 
 };
 
 module.exports = { deliveryRequests, createDeliveryRequest, getTrackingStatus };

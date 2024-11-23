@@ -12,3 +12,16 @@ button {
 button:hover {
     background-color: rgb(1, 18, 84);
 }
+
+input,
+select,
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+}
+
+.map-container {
+    width: 100%;
+}
