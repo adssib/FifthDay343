@@ -37,10 +37,7 @@
   }
 }
 
-@font-face {
-  font-family: 'PlayfairDisplay';
-  src: url('/fonts/PlayfairDisplay,wght.ttf') format('truetype');
-}
+
 
 body {
   font-family: 'PlayfairDisplay', sans-serif;
