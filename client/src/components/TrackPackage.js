@@ -1,24 +1,48 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../styles/TrackPackage.css'
+import '../styles/TrackPackage.css';
+
+// Function to fetch the address from reverse geocoding API 
+const getAddressFromCoordinates = async (lat, lng) => {
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`;
+    try {
+        const response = await axios.get(url);
+        return response.data.display_name; 
+    } catch (error) {
+        console.error('Error fetching address:', error);
+        return null;
+    }
+};
 
 const TrackPackage = () => {
     const [trackingId, setTrackingId] = useState('');
     const [packageDetails, setPackageDetails] = useState(null);
     const [error, setError] = useState('');
+    const [pickupAddress, setPickupAddress] = useState('');
+    const [dropoffAddress, setDropoffAddress] = useState('');
 
     const handleTrack = async () => {
         try {
             const response = await axios.get(`http://localhost:5002/api/track/${trackingId}`);
             console.log('Response data:', response.data);
-            setPackageDetails(response.data);
+            const data = response.data;
+            setPackageDetails(data);
             setError('');
+
+            // Fetch the address for pickup and dropoff locations
+            if (data.pickupLocation) {
+                const pickupAddr = await getAddressFromCoordinates(data.pickupLocation.lat, data.pickupLocation.lng);
+                setPickupAddress(pickupAddr);
+            }
+            if (data.dropoffLocation) {
+                const dropoffAddr = await getAddressFromCoordinates(data.dropoffLocation.lat, data.dropoffLocation.lng);
+                setDropoffAddress(dropoffAddr);
+            }
         } catch (error) {
             setError("Package not found.");
             setPackageDetails(null);
         }
     };
-
 
     return (
         <div className='normal-div'>
@@ -38,7 +62,7 @@ const TrackPackage = () => {
                     <h3>Tracking Details:</h3>
                     <strong>Tracking ID:</strong> {packageDetails.trackingId}<br></br>
                     <strong>Status:</strong> {packageDetails.status}<br></br>
-                    <strong>Estimated Arrival at {packageDetails.dropoffLocation}:</strong> {packageDetails.estimatedArrival}<br></br>
+                    <strong>Estimated Arrival:</strong> {packageDetails.estimatedArrival}<br></br>
 
                     <h3>Other Delivery Details:</h3>
                     <table>
@@ -70,11 +94,11 @@ const TrackPackage = () => {
 
                             <tr>
                                 <td><strong>Pickup Location:</strong></td>
-                                <td>{packageDetails.pickupLocation}</td>
+                                <td>{pickupAddress || 'Fetching address...'}</td>
                             </tr>
                             <tr>
                                 <td><strong>Dropoff Location:</strong></td>
-                                <td>{packageDetails.dropoffLocation}</td>
+                                <td>{dropoffAddress || 'Fetching address...'}</td>
                             </tr>
                             <tr>
                                 <td><strong>Dimensions:</strong></td>
@@ -88,7 +112,6 @@ const TrackPackage = () => {
                                 <td><strong>Shipping Method:</strong></td>
                                 <td>{packageDetails.shippingMethod}</td>
                             </tr>
-
                         </tbody>
                     </table>
                 </div>
