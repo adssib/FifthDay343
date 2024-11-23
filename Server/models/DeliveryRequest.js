@@ -23,6 +23,7 @@ class DeliveryRequest {
         this.weight = weight;
         this.shippingMethod = shippingMethod;
         this.paymentStatus = paymentStatus;
+        this.rating = null; // Initialize rating as null
     }
 
     calculateQuote() {
@@ -31,6 +32,15 @@ class DeliveryRequest {
 
     updatePaymentStatus(status) {
         this.paymentStatus = status;
+    }
+
+    
+    setRating(rating) {
+        if (rating >= 1 && rating <= 5) {
+            this.rating = rating;
+            return true;
+        }
+        return false;
     }
 }
 
