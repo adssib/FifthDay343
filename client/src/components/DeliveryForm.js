@@ -31,6 +31,7 @@ const DeliveryForm = () => {
         };
 
         try {
+            console.log('Delivery Data:', deliveryData);
             const response = await axios.post('http://localhost:5002/api/create-request', deliveryData);
             const { trackingId, quote } = response.data;
             navigate('/quote', { state: { trackingId, quote } });

@@ -26,6 +26,31 @@ class DeliveryRequest {
         this.rating = null; // Initialize rating as null
     }
 
+    validate() {
+        // Validate required fields
+        if (!this.pickupLocation || !this.dropoffLocation || !this.dimensions || !this.weight || !this.shippingMethod) {
+            throw new Error('All fields are required');
+        }
+
+        // Validate locations
+        if (
+            !this.pickupLocation.lat || !this.pickupLocation.lng ||
+            !this.dropoffLocation.lat || !this.dropoffLocation.lng
+        ) {
+            throw new Error('Invalid coordinates for pickup or dropoff location');
+        }
+
+        // Validate dimensions
+        if (!this.dimensions.length || !this.dimensions.width || !this.dimensions.height) {
+            throw new Error('Invalid dimensions provided');
+        }
+
+        // Validate weight
+        if (isNaN(this.weight) || this.weight <= 0) {
+            throw new Error('Invalid weight');
+        }
+    }
+
     calculateQuote() {
         return QuoteCalculator.calculateQuote(this.weight, this.shippingMethod);
     }
@@ -34,7 +59,6 @@ class DeliveryRequest {
         this.paymentStatus = status;
     }
 
-    
     setRating(rating) {
         if (rating >= 1 && rating <= 5) {
             this.rating = rating;

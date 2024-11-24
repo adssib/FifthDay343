@@ -1,5 +1,5 @@
 class Tracking {
-    constructor({ estimatedArrival = null, status = 'Pending' }) {
+    constructor({ estimatedArrival = null, status = 'Pending' } = {}) {
         this.estimatedArrival = estimatedArrival;
         this.status = status;
     }
@@ -11,5 +11,10 @@ class Tracking {
         this.estimatedArrival = estimatedArrival.toISOString().split('T')[0]; // Format YYYY-MM-DD
         return this.estimatedArrival;
     }
+
+    updateStatus(status) {
+        this.status = status;
+    }
 }
+
 module.exports = Tracking;
