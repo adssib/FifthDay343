@@ -69,7 +69,7 @@ class DeliveryServiceFacade {
         }   
 
         // Validate the payment method
-        const validPaymentMethods = ['Credit Card', 'Debit Card', 'PayPal'];
+        const validPaymentMethods = ['credit', 'paypal'];
         if (!validPaymentMethods.includes(paymentMethod)) {
             throw new Error('Invalid payment method. Please choose a valid payment option.');
         }
