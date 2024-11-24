@@ -11,7 +11,6 @@ class DeliveryRequest {
         dimensions,
         weight,
         shippingMethod,
-        paymentStatus = 'Pending',
     }) {
         this.id = id;
         this.customer = customer;
@@ -22,7 +21,6 @@ class DeliveryRequest {
         this.dimensions = dimensions;
         this.weight = weight;
         this.shippingMethod = shippingMethod;
-        this.paymentStatus = paymentStatus;
         this.rating = null; // Initialize rating as null
     }
 
@@ -55,9 +53,6 @@ class DeliveryRequest {
         return QuoteCalculator.calculateQuote(this.weight, this.shippingMethod);
     }
 
-    updatePaymentStatus(status) {
-        this.paymentStatus = status;
-    }
 
     setRating(rating) {
         if (rating >= 1 && rating <= 5) {

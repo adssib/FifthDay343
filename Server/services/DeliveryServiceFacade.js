@@ -38,7 +38,6 @@ class DeliveryServiceFacade {
             dimensions,
             weight,
             shippingMethod,
-            paymentStatus: 'Pending',
         });
 
         // Validate the delivery request
@@ -84,7 +83,6 @@ class DeliveryServiceFacade {
 
         // Process the payment
         deliveryRequest.payment.processPayment(paymentMethod);
-        deliveryRequest.updatePaymentStatus('Paid');
 
         // Update tracking status
         deliveryRequest.tracking.updateStatus('Shipped');
@@ -112,7 +110,6 @@ class DeliveryServiceFacade {
             shippingMethod: deliveryRequest.shippingMethod,
             customer: deliveryRequest.customer,
             payment: deliveryRequest.payment,
-            paymentStatus: deliveryRequest.paymentStatus,
             status: deliveryRequest.tracking.status,
             estimatedArrival: deliveryRequest.tracking.estimatedArrival,
             quote: deliveryRequest.calculateQuote(),

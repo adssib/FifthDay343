@@ -89,7 +89,7 @@ const TrackPackage = () => {
                             </tr>
                             <tr>
                                 <td><strong>Payment Status:</strong></td>
-                                <td>{packageDetails.paymentStatus}</td>
+                                <td>{packageDetails.payment.status}</td>
                             </tr>
 
                             <tr>
