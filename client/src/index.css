@@ -14,139 +14,93 @@ code {
   display: flex;
   justify-content: center;
   padding: 10px 20px;
-  color: black;
 }
 
-/* Chatbot styling */
-.chatbot-container {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  border: 1px solid #ccc;
+.main-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: rgb(255, 217, 0);
   padding: 20px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  width: 300px;
-  transition: transform 0.3s ease-in-out;
+  font-family: Arial, sans-serif;
 }
 
-.chatbot-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.chatbot-close-btn,
-.chatbot-close-btn:hover,
-.chatbot-close-btn:active {
+.main-page-container button {
+  background-color: #4CAF50;
   border: none;
+  color: white;
   font-size: 18px;
-  cursor: pointer;
-  color: #888;
-  transition: color 0.3s ease-in-out;
-  background-color: #0000001a;
-  border-radius:40%;
-}
-
-.chatbot-close-btn:hover {
-  background-color: #00000043;
-}
-
-.chatbot-messages {
-  max-height: 200px;
-  overflow-y: scroll;
-  margin-bottom: 10px;
-  padding-right: 5px;
-}
-
-.chatbot-message {
-  margin: 5px 0;
-  padding: 5px;
+  padding: 12px 35px;
+  margin: 10px 0;
   border-radius: 5px;
-  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  transition: background-color 0.3s, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.user-message {
-  background-color: #e0e0e0;
-  text-align: right;
+.main-page-container button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
 }
 
-.bot-message {
-  background-color: #f1f1f1;
-  text-align: left;
+.main-page-container button a {
+  color: white;
+  text-decoration: none;
+  display: block;
 }
 
-.chatbot-input-container {
+.main-page-container button+button {
+  margin-top: 15px;
+}
+
+div .forms,
+.normal-div {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgb(255, 217, 0);
+}
+
+form {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
 }
 
-.chatbot-input {
-  flex: 1;
+input,
+select {
   padding: 10px;
-  height: 40px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease-in-out;
+  margin: 8px 0;
+  border: 1px solid rgb(0, 35, 175);
+  border-radius: 4px;
+  font-size: 16px;
 }
 
-.chatbot-send-btn {
-  padding: 0 10px;
-  height: 40px;
-  margin: 0;
-  border-radius: 5px;
-  background-color: #2b6fa0;
-  color: white;
+button {
+  padding: 12px;
+  margin: 10px 0;
+  font-size: 20px;
+  cursor: pointer;
   border: none;
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  font-family: 'PlayfairDisplay', sans-serif;
 }
 
-.chatbot-send-btn:hover {
-  background-color: #0c2f48;
-  transform: translateY(-0.5px); 
+button:hover {
+  background-color: rgb(0, 35, 175);
+  color: whitesmoke;
 }
 
-.chatbot-send-btn:active {
-  transform: scale(1);
+input::placeholder {
+  color: #888;
 }
 
-.chatbot-toggle-btn {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 80px;
-  height: 80px;
-  padding: 0;
-  border-radius: 50%;
-  background-color: #0f4e7b;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 1000;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-  font-size: 14px;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.chatbot-toggle-btn:hover {
-  background-color: #06466b;
-  transform: scale(1.05);
-}
-
-.chatbot-toggle-btn:active {
-  transform: scale(1);
+select {
+  width: 100%;
+  color: #888;
 }

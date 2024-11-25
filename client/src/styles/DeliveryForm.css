@@ -1,0 +1,27 @@
+h2 {
+    font-family: 'PlayfairDisplay', sans-serif;
+    color: #1700e5;
+    text-align: center;
+}
+
+button {
+    background-color: rgb(0, 35, 175);
+    color: whitesmoke;
+}
+
+button:hover {
+    background-color: rgb(1, 18, 84);
+}
+
+input,
+select,
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+}
+
+.map-container {
+    width: 100%;
+}

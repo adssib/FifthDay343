@@ -1,50 +1,88 @@
+const QuoteCalculator = require('../services/QuoteCalculator');
 
 class DeliveryRequest {
-
     constructor({
-        trackingId,
+        id,
+        customer,
+        tracking,
+        payment,
         pickupLocation,
         dropoffLocation,
         dimensions,
         weight,
         shippingMethod,
-        name = '',
-        email = '',
-        phone = '',
-        paymentStatus = 'Pending',
-        status = 'Pending',
-        estimatedArrival = null,
     }) {
-        this.trackingId = trackingId;
+        this.id = id;
+        this.customer = customer;
+        this.tracking = tracking;
+        this.payment = payment;
         this.pickupLocation = pickupLocation;
         this.dropoffLocation = dropoffLocation;
-        this.dimensions = dimensions;
-        this.weight = weight;
+
+        // Convert dimensions to numbers
+        this.dimensions = {
+            length: Number(dimensions.length),
+            width: Number(dimensions.width),
+            height: Number(dimensions.height),
+        };
+
+        // Convert weight to a number
+        this.weight = Number(weight);
+
         this.shippingMethod = shippingMethod;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.paymentStatus = paymentStatus;
-        this.status = status;
-        this.estimatedArrival = estimatedArrival;
+        this.rating = null; // Initialize rating as null
+    }
+
+    validate() {
+        // Validate required fields
+        if (!this.pickupLocation || !this.dropoffLocation || !this.dimensions || !this.weight || !this.shippingMethod) {
+            console.error('Missing required fields:', {
+                pickupLocation: this.pickupLocation,
+                dropoffLocation: this.dropoffLocation,
+                dimensions: this.dimensions,
+                weight: this.weight,
+                shippingMethod: this.shippingMethod,
+            });
+            throw new Error('All fields are required');
+        }
+
+        console.log('Validating locations...');
+        // Validate locations
+        if (!this.pickupLocation || typeof this.pickupLocation !== 'string') {
+            console.error('Invalid pickup address:', this.pickupLocation);
+            throw new Error('Invalid pickup address');
+        }
+
+        if (!this.dropoffLocation || typeof this.dropoffLocation !== 'string') {
+            console.error('Invalid dropoff address:', this.dropoffLocation);
+            throw new Error('Invalid dropoff address');
+        }
+
+        // Validate dimensions
+        if (!this.dimensions.length || !this.dimensions.width || !this.dimensions.height) {
+            console.error('Invalid dimensions:', this.dimensions);
+            throw new Error('Invalid dimensions provided');
+        }
+
+        // Validate weight
+        if (isNaN(this.weight) || this.weight <= 0) {
+            console.error('Invalid weight:', this.weight);
+            throw new Error('Invalid weight');
+        }
+        console.log('successfully validated the request');
     }
 
     calculateQuote() {
-        const basePrice = 10;  // Base price
-        const weightCharge = this.weight * 2;  // $2 per kg
-        const shippingCharge = this.shippingMethod === 'Express' ? 20 : 10;  // $20 for express, $10 for standard
-        return basePrice + weightCharge + shippingCharge;
+        return QuoteCalculator.calculateQuote(this.weight, this.shippingMethod);
     }
 
-    calculateEstimatedArrival() {
-        const shippingDays = this.shippingMethod === 'Express' ? 3 : 5;
-        const estimatedArrival = new Date();
-        estimatedArrival.setDate(estimatedArrival.getDate() + shippingDays);
-        return estimatedArrival.toISOString().split('T')[0]; // Format YYYY-MM-DD
-    }
 
-    updatePaymentStatus(status) {
-        this.paymentStatus = status;
+    setRating(rating) {
+        if (rating >= 1 && rating <= 5) {
+            this.rating = rating;
+            return true;
+        }
+        return false;
     }
 }
 

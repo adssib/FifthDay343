@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
+import CreditCardForm from './CreditCardForm';
+import PayPalForm from './PayPalForm';
+
 const PaymentPage = () => {
   const { state } = useLocation();
   const [name, setName] = useState('');
@@ -34,7 +37,7 @@ const PaymentPage = () => {
 
     console.log('Sending payment details:', paymentDetails);
     try {
-      const response = await axios.post('http://localhost:5000/api/payment/pay', paymentDetails);
+      const response = await axios.post('http://localhost:5002/api/payment/pay', paymentDetails);
 
       if (response.status === 200) {
         setStatus("Payment successful!");
@@ -53,8 +56,18 @@ const PaymentPage = () => {
     }
   };
 
+  const renderPaymentForm = () => {
+    if (paymentMethod === 'credit') {
+      return <CreditCardForm onSubmit={handlePayment} />;
+    }
+    if (paymentMethod === 'paypal') {
+      return <PayPalForm onSubmit={handlePayment} />;
+    }
+    return null;
+  };
+
   return (
-    <div>
+    <div className='normal-div'>
       <h2>Payment</h2>
       <form onSubmit={handlePayment}>
         <div>

@@ -1,18 +1,18 @@
-// server/server.js
 const express = require('express');
-const db = require('./config/db'); // Importing the singleton database connection
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const deliveryRoutes = require('./routes/deliveryRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Logging middleware
 app.use((req, res, next) => {
@@ -20,20 +20,10 @@ app.use((req, res, next) => {
     next();
 });
 
-// Test Database Connection Route
-app.get('/test-connection', async (req, res) => {
-    try {
-        await db.connect(); // Call the connect method from the Singleton
-        res.status(200).send('Database connection is successful!');
-    } catch (error) {
-        console.error('Connection error:', error);
-        res.status(500).send('Database connection failed!');
-    }
-});
-
 // API routes
 app.use('/api', deliveryRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api', reviewRoutes);
 
 // Start the server
 app.listen(PORT, () => {

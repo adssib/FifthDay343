@@ -1,0 +1,52 @@
+.main-page-container {
+    background-color: rgb(255, 217, 0);
+    color: rgb(0, 35, 175); 
+    justify-content: space-evenly; 
+    align-items: center; 
+    height: 100vh; 
+    text-align: center; 
+    
+    font-family: 'PlayfairDisplay', sans-serif;
+    font-size: 2rem;
+}
+
+.main-page-container button {
+    background-color: rgb(0, 35, 175); 
+    color: whitesmoke; 
+    width: 150px;
+    height: 150px;
+    font-family: 'PlayfairDisplay', sans-serif;
+    margin: 0;
+    justify-content: center;
+    text-align: center;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap: 20px;
+}
+
+.main-page-container button:hover {
+    background-color: rgb(39, 77, 228);
+}
+
+.main-page-container button a {
+    text-decoration: none;
+    color: whitesmoke; 
+    font-size: 22px; 
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+ 
+  

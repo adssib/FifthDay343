@@ -1,98 +1,52 @@
-const DeliveryRequest = require('../models/DeliveryRequest');
+const deliveryService = require('../services/DeliveryServiceFacade');
 
-// Mock database to store delivery requests
-let deliveryRequests = [];
-let trackingIdCounter = 1;
-
-// Create a new delivery request and return a quote
 const createDeliveryRequest = (req, res) => {
-    const { pickupLocation, dropoffLocation, dimensions, weight, shippingMethod } = req.body;
-
-    // Validate if all required fields are present
-    if (!pickupLocation || !dropoffLocation || !dimensions || !weight || !shippingMethod) {
-        return res.status(400).json({ message: "All fields are required" });
+    try {
+        const result = deliveryService.createDeliveryRequest(req.body);
+        res.json({
+            trackingId: result.trackingId,
+            quote: result.quote,
+            message: 'Delivery request created successfully!',
+        });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
     }
-
-    // Validate dimensions
-    if (!dimensions.length || !dimensions.width || !dimensions.height) {
-        return res.status(400).json({ message: "Invalid dimensions provided" });
-    }
-
-    // Validate weight
-    if (isNaN(weight) || weight <= 0) {
-        return res.status(400).json({ message: "Invalid weight" });
-    }
-
-    // Generate a tracking ID
-    const trackingId = trackingIdCounter++;
-
-    // Create the delivery request object
-    const deliveryRequest = new DeliveryRequest({
-        trackingId,
-        pickupLocation,
-        dropoffLocation,
-        dimensions,
-        weight,
-        shippingMethod,
-    });
-
-    // Calculate the quote
-    const quote = deliveryRequest.calculateQuote();
-
-    // Calculate estimated arrival date
-    const estimatedArrivalDate = deliveryRequest.calculateEstimatedArrival();
-
-    // Update delivery request with estimated arrival date
-    deliveryRequest.estimatedArrival = estimatedArrivalDate;
-
-    // Add the new delivery request to the mock database
-    deliveryRequests.push(deliveryRequest);
-
-    // Send the quote and tracking ID back to the frontend
-    res.json({
-        trackingId,
-        quote,
-        message: 'Delivery request created successfully!',
-    });
 };
 
-// Function to retrieve the tracking status by tracking ID
 const getTrackingStatus = (req, res) => {
-    const { trackingId } = req.params;
-
-    // Find the delivery request by trackingId
-    const deliveryRequest = deliveryRequests.find(request => request.trackingId === parseInt(trackingId));
-
-    if (!deliveryRequest) {
-        return res.status(404).json({ message: 'Delivery request not found' });
-    }
-
-    // Return the full details of the delivery request
-    res.json({
-        trackingId: deliveryRequest.trackingId,
-        pickupLocation: deliveryRequest.pickupLocation,
-        dropoffLocation: deliveryRequest.dropoffLocation,
-        dimensions: deliveryRequest.dimensions,
-        weight: deliveryRequest.weight,
-        shippingMethod: deliveryRequest.shippingMethod,
-        name: deliveryRequest.name,
-        email: deliveryRequest.email,
-        phone: deliveryRequest.phone,
-        paymentStatus: deliveryRequest.paymentStatus,
-        status: deliveryRequest.status,
-        estimatedArrival: deliveryRequest.estimatedArrival,
-        quote: deliveryRequest.calculateQuote(),
-    });
-};
-
-
-// Function to update payment status (from paymentController)
-const updatePaymentStatus = (trackingId, status) => {
-    const deliveryRequest = deliveryRequests.find(req => req.trackingId === trackingId);
-
-    if (deliveryRequest) {
-        deliveryRequest.updatePaymentStatus(status);
+    try {
+        const { trackingId } = req.params;
+        const status = deliveryService.getTrackingStatus(trackingId);
+        res.json(status);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
     }
 };
 
-module.exports = { deliveryRequests, createDeliveryRequest, getTrackingStatus, updatePaymentStatus };
+const shipDelivery = (req, res) => {
+    try {
+        const { trackingId } = req.params;
+        const result = deliveryService.shipDelivery(trackingId);
+        res.json(result);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};
+
+const rateDelivery = (req, res) => {
+    try {
+        const { trackingId } = req.params;
+        const { rating } = req.body;
+        const result = deliveryService.rateDelivery(trackingId, rating);
+        res.json(result);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+module.exports = {
+    createDeliveryRequest,
+    getTrackingStatus,
+    shipDelivery,
+    rateDelivery,
+};

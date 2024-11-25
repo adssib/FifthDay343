@@ -7,7 +7,7 @@ const QuotePage = () => {
   const { trackingId, quote } = location.state || {};
 
   return (
-    <div>
+    <div className='normal-div'>
       <h2>Delivery Quote</h2>
       <p>Tracking ID: {trackingId}</p>
       <p>Quote: ${quote}</p>
