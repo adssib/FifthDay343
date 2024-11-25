@@ -65,4 +65,3 @@ const processPayment = (req, res) => {
 };
 
 module.exports = { processPayment };
-}
