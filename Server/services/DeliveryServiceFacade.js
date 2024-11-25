@@ -25,9 +25,10 @@ class DeliveryServiceFacade {
 
     // Create a new delivery request
     createDeliveryRequest(data) {
+        console.log('Received delivery request data:', data);
         const {
-            pickupLocation,
-            dropoffLocation,
+            pickupAddress: pickupLocation,
+            dropoffAddress: dropoffLocation,
             dimensions,
             weight,
             shippingMethod,
@@ -54,6 +55,7 @@ class DeliveryServiceFacade {
             weight,
             shippingMethod,
         });
+        console.log('created delivery request:', deliveryRequest);
 
         // Validate the delivery request
         deliveryRequest.validate();
