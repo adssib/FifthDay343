@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
+import CreditCardForm from './CreditCardForm';
+import PayPalForm from './PayPalForm';
+
 const PaymentPage = () => {
   const { state } = useLocation();
   const [name, setName] = useState('');
@@ -51,6 +54,16 @@ const PaymentPage = () => {
         setStatus('Error setting up request.');
       }
     }
+  };
+
+  const renderPaymentForm = () => {
+    if (paymentMethod === 'credit') {
+      return <CreditCardForm onSubmit={handlePayment} />;
+    }
+    if (paymentMethod === 'paypal') {
+      return <PayPalForm onSubmit={handlePayment} />;
+    }
+    return null;
   };
 
   return (
