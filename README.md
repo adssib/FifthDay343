@@ -18,7 +18,7 @@
 
 [Phase 2 Google Doc](https://docs.google.com/document/d/1i2POawuKCG7FH_M4zRJQXd_zF8gFbB9sYsheUU6gsiQ/edit?usp=sharing)
 
-[Presentation summary](https://meet.google.com/iqy-xysw-nta)
+[Presentation summary](https://docs.google.com/document/d/1BaKpeC4J6Prw6s1dn1kqUvbLb9Tb0jmL1Ep8NADLmyQ/edit?usp=sharing)
 
 # How to Run?
 
