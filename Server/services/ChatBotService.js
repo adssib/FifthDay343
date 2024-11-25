@@ -44,6 +44,7 @@ class ChatbotService {
                 return "I'm sorry, I couldn't find a package with that tracking number.";
             }
         } else {
+          // No tracking number found in the message
             return "To track your package, please provide the tracking number.";
         }
     }
