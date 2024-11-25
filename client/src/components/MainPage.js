@@ -16,6 +16,7 @@ const MainPage = () => {
       <div className="buttons-container">
         <button><Link to="/create-request">Rate & Ship</Link></button>
         <button><Link to="/track-package">Track</Link></button>
+        <button><Link to="/submit-review">Review</Link></button>
       </div>
       <h2>Fast On Track</h2>
 

@@ -8,7 +8,7 @@ import PaymentPage from './components/PaymentPage';
 import SuccessPage from './components/SuccessPage';
 import TrackPackage from './components/TrackPackage';
 import Chatbot from './components/Chatbot';
-
+import ReviewForm from "./components/ReviewForm";
 
 const App = () => {
   return (
@@ -22,6 +22,7 @@ const App = () => {
         <Route path="/payment/pay" element={<PaymentPage />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/track-package" element={<TrackPackage />} />
+        <Route path="/submit-review" element={<ReviewForm />} />
 
       </Routes>
       <Chatbot />
