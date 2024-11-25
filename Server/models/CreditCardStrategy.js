@@ -1,11 +1,11 @@
-import PaymentStrategy from './PaymentStrategy';
+// CreditCardStrategy.js (CommonJS)
+const PaymentStrategy = require('./PaymentStrategy');  // CommonJS import
 
 class CreditCardStrategy extends PaymentStrategy {
-  async processPayment(paymentDetails) {
-    // Add logic for any specific credit card validation if necessary
-    console.log("Processing credit card payment:", paymentDetails);
-    return paymentDetails; // This is what gets sent to the backend
-  }
+    async processPayment(paymentDetails) {
+        console.log("Processing credit card payment:", paymentDetails);
+        return paymentDetails;
+    }
 }
 
-export default CreditCardStrategy;
+module.exports = CreditCardStrategy;  // CommonJS export
