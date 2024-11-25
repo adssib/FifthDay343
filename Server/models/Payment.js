@@ -1,3 +1,4 @@
+// Payment.js
 class Payment {
     constructor({ paymentMethod = '', status = 'Pending' } = {}) {
         this.paymentMethod = paymentMethod;
@@ -10,6 +11,4 @@ class Payment {
     }
 }
 
-
 module.exports = Payment;
-

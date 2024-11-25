@@ -1,9 +1,8 @@
-// PaymentStrategy.js
+// PaymentStrategy.js (CommonJS)
 class PaymentStrategy {
-    async processPayment(paymentDetails) {
+  async processPayment(paymentDetails) {
       throw new Error("Method not implemented");
-    }
   }
-  
-  export default PaymentStrategy;
-  
+}
+
+module.exports = PaymentStrategy;  // Exporting the class
