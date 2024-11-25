@@ -1,6 +1,6 @@
 const { deliveryRequests } = require('../controllers/deliveryController');  // Import the delivery requests
-const CreditCardStrategy = require('../models/Payment/CreditCardStrategy');
-const PayPalStrategy = require('../models/Payment/PayPalStrategy');
+const CreditCardStrategy = require('../models/CreditCardStrategy');
+const PayPalStrategy = require('../models/PayPalStrategy');
 
 
 
@@ -40,7 +40,7 @@ const processPayment = (req, res) => {
              error: paymentResult.error, // Provide details if payment fails
          });
      }
-     
+
     if (!deliveryRequest) {
         return res.status(404).json({ message: 'Delivery request not found' });
     }
