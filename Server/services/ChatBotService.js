@@ -4,23 +4,31 @@ class ChatbotService {
     processMessage(message) {
         const lowercaseMessage = message.toLowerCase();
 
-        // Check for tracking-related queries
+        let queryType = null;
+
+        // Determine query type
         if (lowercaseMessage.includes('track') || lowercaseMessage.includes('status')) {
-            return this.handleTrackingQuery(lowercaseMessage);
+            queryType = 'tracking';
+        } else if (lowercaseMessage.includes('help') || lowercaseMessage.includes('support')) {
+            queryType = 'general';
+        } else if (lowercaseMessage.includes('service') || lowercaseMessage.includes('shipping')) {
+            queryType = 'service';
         }
 
-        // Check for general inquiries
-        if (lowercaseMessage.includes('help') || lowercaseMessage.includes('support')) {
-            return "How can I assist you? You can ask about tracking a package, delivery times, or our services.";
-        }
+        // Handle the query using a switch statement
+        switch (queryType) {
+            case 'tracking':
+                return this.handleTrackingQuery(lowercaseMessage);
 
-        // Check for service-related queries
-        if (lowercaseMessage.includes('service') || lowercaseMessage.includes('shipping')) {
-            return "We offer various shipping services including standard and express delivery. How can I help you with our services?";
-        }
+            case 'general':
+                return "How can I assist you? You can ask about tracking a package, delivery times, or our services.";
 
-        // Default response
-        return "I'm sorry, I didn't understand that. Can you please rephrase your question?";
+            case 'service':
+                return "We offer various shipping services including standard and express delivery. How can I help you with our services?";
+
+            default:
+                return "I'm sorry, I didn't understand that. Can you please rephrase your question?";
+        }
     }
 
     handleTrackingQuery(message) {
@@ -28,14 +36,18 @@ class ChatbotService {
         const trackingNumberMatch = message.match(/\d+/);
 
         if (trackingNumberMatch) {
-            const trackingNumber = trackingNumberMatch[0];
+            const trackingNumber = trackingNumberMatch[0]; // Extract the tracking ID
             try {
+                // Call the service to get tracking status
                 const status = deliveryServiceFacade.getTrackingStatus(trackingNumber);
+
+                // Redirect to tracking with the tracking ID
                 return `Your package with tracking number ${trackingNumber} is currently ${status.status}. Estimated delivery: ${status.estimatedArrival}.`;
             } catch (error) {
-                return "I'm sorry, I couldn't find a package with that tracking number.";
+                return "I'm sorry, I couldn't find a package with that tracking number. Please double-check and try again.";
             }
         } else {
+            // No tracking number found in the message
             return "To track your package, please provide the tracking number.";
         }
     }
