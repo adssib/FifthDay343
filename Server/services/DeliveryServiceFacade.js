@@ -4,8 +4,25 @@ const Payment = require('../models/Payment');
 const DeliveryRequest = require('../models/DeliveryRequest');
 const DeliveryRequestRepository = require('../repositories/DeliveryRequestRepository');
 const QuoteCalculator = require('./QuoteCalculator');
+const DeliveryNotifier = require('../observers/DeliveryNotifier');
+const EmailNotification = require('../observers/EmailNotification');
+const SMSNotification = require('../observers/SMSNotification');
+
 
 class DeliveryServiceFacade {
+    constructor() {
+        this.notifier = new DeliveryNotifier();
+
+
+        // Create instances for observers
+        this.emailObserver = new EmailNotification();
+        this.smsObserver = new SMSNotification();
+
+
+        this.notifiedStatuses = new Set();
+    }
+
+
     // Create a new delivery request
     createDeliveryRequest(data) {
         const {
@@ -79,6 +96,19 @@ class DeliveryServiceFacade {
         // Update customer details
         deliveryRequest.customer = new Customer({ name, email, phone });
 
+        // Attach observers based on the updated customer information if not already attached
+        if (email && !this.notifier.observers.includes(this.emailObserver)) {
+            this.notifier.attach(this.emailObserver);
+            console.log("EmailNotification observer attached.");
+        }
+
+
+        if (phone && !this.notifier.observers.includes(this.smsObserver)) {
+            this.notifier.attach(this.smsObserver);
+            console.log("SMSNotification observer attached.");
+        }
+
+
         // Process the payment
         deliveryRequest.payment.processPayment(paymentMethod);
 
@@ -139,6 +169,12 @@ class DeliveryServiceFacade {
         const interval = setInterval(() => {
             if (statusIndex < statuses.length) {
                 deliveryRequest.tracking.updateStatus(statuses[statusIndex]);
+
+                if (!this.notifiedStatuses.has(statuses[statusIndex])) {
+                    this.notifier.notifyObservers(deliveryRequest.customer, statuses[statusIndex]);
+                    this.notifiedStatuses.add(statuses[statusIndex]);
+                }
+
                 if (statusIndex === statuses.length - 1) {
                     clearInterval(interval);
                 }
@@ -160,7 +196,6 @@ class DeliveryServiceFacade {
         if (deliveryRequest.setRating(rating)) {
             // Update the delivery request in the repository
             DeliveryRequestRepository.updateDeliveryRequest(deliveryRequest);
-
             return { message: 'Rating submitted successfully', trackingId, rating };
         } else {
             throw new Error('Invalid rating. Please provide a rating between 1 and 5');
