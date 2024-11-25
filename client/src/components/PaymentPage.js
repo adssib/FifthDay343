@@ -14,7 +14,7 @@ const PaymentPage = () => {
   const [status, setStatus] = useState('');
   const navigate = useNavigate();
 
-  const handlePayment = async (e) => {
+  const handlePayment = async (e, paymentDetailss) => {
     e.preventDefault();
 
     if (!name || (!email && !phone)) {
@@ -32,7 +32,8 @@ const PaymentPage = () => {
       name,
       email,
       phone,
-      paymentMethod
+      paymentMethod,
+      paymentDetailss
     };
 
     console.log('Sending payment details:', paymentDetails);
@@ -58,10 +59,10 @@ const PaymentPage = () => {
 
   const renderPaymentForm = () => {
     if (paymentMethod === 'credit') {
-      return <CreditCardForm onSubmit={handlePayment} />;
+      return <CreditCardForm onSubmit={(details) => handlePayment(details)} />;
     }
     if (paymentMethod === 'paypal') {
-      return <PayPalForm onSubmit={handlePayment} />;
+      return <PayPalForm onSubmit={(details) => handlePayment(details)} />;
     }
     return null;
   };
@@ -116,6 +117,7 @@ const PaymentPage = () => {
       </form>
 
       {status && <p>{status}</p>}
+      {renderPaymentForm()}
     </div>
   );
 };

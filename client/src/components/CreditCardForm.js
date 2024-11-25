@@ -7,7 +7,7 @@ const CreditCardForm = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ cardNumber, expiryDate, cvv });
+    onSubmit({ paymentMethod: 'credit',cardNumber, expiryDate, cvv });
   };
 
   return (

@@ -5,7 +5,7 @@ const PayPalForm = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ email });
+    onSubmit({ paymentMethod: 'paypal',email });
   };
 
   return (
