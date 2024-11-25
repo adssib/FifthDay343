@@ -18,6 +18,8 @@
 
 [Phase 2 Google Doc](https://docs.google.com/document/d/1i2POawuKCG7FH_M4zRJQXd_zF8gFbB9sYsheUU6gsiQ/edit?usp=sharing)
 
+[Presentation summary](https://meet.google.com/iqy-xysw-nta)
+
 # How to Run?
 
 1) Clone the repository using 
