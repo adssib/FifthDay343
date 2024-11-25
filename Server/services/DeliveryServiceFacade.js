@@ -1,5 +1,3 @@
-// services/DeliveryServiceFacade.js
-
 const Customer = require('../models/Customer');
 const Tracking = require('../models/Tracking');
 const Payment = require('../models/Payment');
@@ -64,8 +62,8 @@ class DeliveryServiceFacade {
 
         // Validate
         if (!trackingId || !name || (!email && !phone) || !paymentMethod) {
-            throw new Error( 'Missing required fields' );
-        }   
+            throw new Error('Missing required fields');
+        }
 
         // Validate the payment method
         const validPaymentMethods = ['credit', 'paypal'];
@@ -117,26 +115,45 @@ class DeliveryServiceFacade {
     }
 
     // Ship the package
-    // simulated by taking 5 seconds to deliver the parcel 
+    // added statuses that change every 5 seconds
     shipDelivery(trackingId) {
         const deliveryRequest = this.findDeliveryRequest(trackingId);
 
-        // Update tracking status after a delay
-        setTimeout(() => {
-            deliveryRequest.tracking.updateStatus('Delivered');
+        if (!deliveryRequest) {
+            throw new Error('Delivery request not found');
+        }
 
-            // Update the delivery request in the repository
-            DeliveryRequestRepository.updateDeliveryRequest(deliveryRequest);
+        const statuses = [
+            'Awaiting Pickup',
+            'Picked Up',
+            'In Transit',
+            'Arrived at Facility',
+            'Out for Delivery',
+            'Successfully Delivered'
+        ];
+
+        let statusIndex = 0;
+
+        console.log(`Delivery process started for tracking ID: ${trackingId}`);
+
+        const interval = setInterval(() => {
+            if (statusIndex < statuses.length) {
+                deliveryRequest.tracking.updateStatus(statuses[statusIndex]);
+                if (statusIndex === statuses.length - 1) {
+                    clearInterval(interval);
+                }
+                statusIndex++;
+            }
         }, 5000);
 
-        return { message: 'The parcel has been successfully delivered.', trackingId };
+        return { message: 'Delivery process started', trackingId };
     }
 
     // Rate the delivery
     rateDelivery(trackingId, rating) {
         const deliveryRequest = this.findDeliveryRequest(trackingId);
 
-        if (deliveryRequest.tracking.status !== 'Delivered') {
+        if (deliveryRequest.tracking.status !== 'Successfully Delivered') {
             throw new Error('Cannot rate a delivery that has not been delivered yet');
         }
 
