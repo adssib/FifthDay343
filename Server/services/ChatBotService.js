@@ -1,10 +1,6 @@
-// services/ChatbotService.js
+const deliveryServiceFacade = require('../services/DeliveryServiceFacade');
 
 class ChatbotService {
-    constructor(deliveryRequests) {
-        this.deliveryRequests = deliveryRequests;
-    }
-
     processMessage(message) {
         const lowercaseMessage = message.toLowerCase();
 
@@ -29,13 +25,14 @@ class ChatbotService {
 
     handleTrackingQuery(message) {
         // Extract tracking number (assuming it's a number in the message)
-        const trackingNumber = message.match(/\d+/);
-        
-        if (trackingNumber) {
-            const package = this.deliveryRequests.find(req => req.id === parseInt(trackingNumber[0]));
-            if (package) {
-                return `Your package with tracking number ${trackingNumber[0]} is currently ${package.tracking.status}. Estimated delivery: ${package.tracking.estimatedArrival}.`;
-            } else {
+        const trackingNumberMatch = message.match(/\d+/);
+
+        if (trackingNumberMatch) {
+            const trackingNumber = trackingNumberMatch[0];
+            try {
+                const status = deliveryServiceFacade.getTrackingStatus(trackingNumber);
+                return `Your package with tracking number ${trackingNumber} is currently ${status.status}. Estimated delivery: ${status.estimatedArrival}.`;
+            } catch (error) {
                 return "I'm sorry, I couldn't find a package with that tracking number.";
             }
         } else {

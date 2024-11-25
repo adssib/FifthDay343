@@ -2,44 +2,22 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/TrackPackage.css';
 
-// Function to fetch the address from reverse geocoding API 
-const getAddressFromCoordinates = async (lat, lng) => {
-    const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`;
-    try {
-        const response = await axios.get(url);
-        return response.data.display_name; 
-    } catch (error) {
-        console.error('Error fetching address:', error);
-        return null;
-    }
-};
-
 const TrackPackage = () => {
-    const [trackingId, setTrackingId] = useState('');
-    const [packageDetails, setPackageDetails] = useState(null);
-    const [error, setError] = useState('');
-    const [pickupAddress, setPickupAddress] = useState('');
-    const [dropoffAddress, setDropoffAddress] = useState('');
+    const [trackingId, setTrackingId] = useState(''); // Tracking ID input by the user
+    const [packageDetails, setPackageDetails] = useState(null); // Stores package details fetched from the backend
+    const [error, setError] = useState(''); // Error message if tracking fails
 
     const handleTrack = async () => {
         try {
             const response = await axios.get(`http://localhost:5002/api/track/${trackingId}`);
             console.log('Response data:', response.data);
             const data = response.data;
+
+            // Set the package details directly
             setPackageDetails(data);
             setError('');
-
-            // Fetch the address for pickup and dropoff locations
-            if (data.pickupLocation) {
-                const pickupAddr = await getAddressFromCoordinates(data.pickupLocation.lat, data.pickupLocation.lng);
-                setPickupAddress(pickupAddr);
-            }
-            if (data.dropoffLocation) {
-                const dropoffAddr = await getAddressFromCoordinates(data.dropoffLocation.lat, data.dropoffLocation.lng);
-                setDropoffAddress(dropoffAddr);
-            }
         } catch (error) {
-            setError("Package not found.");
+            setError("Package not found."); // Display error if the package isn't found
             setPackageDetails(null);
         }
     };
@@ -50,7 +28,7 @@ const TrackPackage = () => {
             <input
                 type="text"
                 value={trackingId}
-                onChange={(e) => setTrackingId(e.target.value)}
+                onChange={(e) => setTrackingId(e.target.value)} // Update tracking ID state
                 placeholder="Enter Tracking ID"
             />
             <button onClick={handleTrack}>Track</button>
@@ -60,9 +38,9 @@ const TrackPackage = () => {
             {packageDetails && (
                 <div>
                     <h3>Tracking Details:</h3>
-                    <strong>Tracking ID:</strong> {packageDetails.trackingId}<br></br>
-                    <strong>Status:</strong> {packageDetails.status}<br></br>
-                    <strong>Estimated Arrival:</strong> {packageDetails.estimatedArrival}<br></br>
+                    <strong>Tracking ID:</strong> {packageDetails.trackingId}<br />
+                    <strong>Status:</strong> {packageDetails.status}<br />
+                    <strong>Estimated Arrival:</strong> {packageDetails.estimatedArrival}<br />
 
                     <h3>Other Delivery Details:</h3>
                     <table>
@@ -89,16 +67,16 @@ const TrackPackage = () => {
                             </tr>
                             <tr>
                                 <td><strong>Payment Status:</strong></td>
-                                <td>{packageDetails.paymentStatus}</td>
+                                <td>{packageDetails.payment.status}</td>
                             </tr>
-
+                            {/* Adjusted: Directly display the pickup and dropoff addresses */}
                             <tr>
                                 <td><strong>Pickup Location:</strong></td>
-                                <td>{pickupAddress || 'Fetching address...'}</td>
+                                <td>{packageDetails.pickupLocation}</td>
                             </tr>
                             <tr>
                                 <td><strong>Dropoff Location:</strong></td>
-                                <td>{dropoffAddress || 'Fetching address...'}</td>
+                                <td>{packageDetails.dropoffLocation}</td>
                             </tr>
                             <tr>
                                 <td><strong>Dimensions:</strong></td>

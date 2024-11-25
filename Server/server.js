@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const deliveryRoutes = require('./routes/deliveryRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5002;
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 5002;
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Logging middleware
 app.use((req, res, next) => {
@@ -21,6 +23,7 @@ app.use((req, res, next) => {
 // API routes
 app.use('/api', deliveryRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api', reviewRoutes);
 
 // Start the server
 app.listen(PORT, () => {
