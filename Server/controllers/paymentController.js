@@ -1,4 +1,9 @@
 const { deliveryRequests } = require('../controllers/deliveryController');  // Import the delivery requests
+const CreditCardStrategy = require('../models/Payment/CreditCardStrategy');
+const PayPalStrategy = require('../models/Payment/PayPalStrategy');
+
+
+
 
 // Process payment and update the delivery request
 const processPayment = (req, res) => {
@@ -16,6 +21,26 @@ const processPayment = (req, res) => {
 
     console.log('Found delivery request:', deliveryRequest);
 
+     // Select the appropriate payment strategy
+     let strategy;
+     if (paymentMethod === 'credit') {
+         strategy = new CreditCardStrategy();
+     } else if (paymentMethod === 'paypal') {
+         strategy = new PayPalStrategy();
+     } else {
+         return res.status(400).json({ message: 'Invalid payment method selected.' });
+     }
+ 
+     // Execute the selected payment strategy
+     const paymentResult = strategy.processPayment({ name, email, phone });
+ 
+     if (!paymentResult.success) {
+         return res.status(500).json({
+             message: 'Payment failed.',
+             error: paymentResult.error, // Provide details if payment fails
+         });
+     }
+     
     if (!deliveryRequest) {
         return res.status(404).json({ message: 'Delivery request not found' });
     }

@@ -7,4 +7,5 @@ class Payment {
         this.paymentMethod = method;
     }
 }
-module.exports = Payment;
+export default Payment;
+
