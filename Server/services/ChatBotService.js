@@ -32,19 +32,23 @@ class ChatbotService {
     }
 
     handleTrackingQuery(message) {
-        // Extract tracking number (assuming it's a number in the message)
+        // Extract tracking number 
         const trackingNumberMatch = message.match(/\d+/);
 
         if (trackingNumberMatch) {
-            const trackingNumber = trackingNumberMatch[0];
+            const trackingNumber = trackingNumberMatch[0]; // Extract the tracking ID
             try {
+                // Call the service to get tracking status
                 const status = deliveryServiceFacade.getTrackingStatus(trackingNumber);
-                return `Your package with tracking number ${trackingNumber} is currently ${status.status}. Estimated delivery: ${status.estimatedArrival}.`;
+
+                // Redirect to tracking with the tracking ID
+                return `Redirecting to tracking for package ${trackingNumber}: 
+                Your package is currently ${status.status}. Estimated delivery: ${status.estimatedArrival}.`;
             } catch (error) {
-                return "I'm sorry, I couldn't find a package with that tracking number.";
+                return "I'm sorry, I couldn't find a package with that tracking number. Please double-check and try again.";
             }
         } else {
-          // No tracking number found in the message
+            // No tracking number found in the message
             return "To track your package, please provide the tracking number.";
         }
     }
