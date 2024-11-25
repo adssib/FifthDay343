@@ -12,3 +12,40 @@ body {
     font-family: 'PlayfairDisplay', sans-serif;
     font-size: 2rem;
 }
+
+.trackingDetails {
+    margin-top: 10%;
+    background-color: antiquewhite;
+    padding: 10%;
+    border-radius: 4rem;
+}
+
+.trackingTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.trackingTable td {
+    padding: 8px;
+}
+
+.tableLabel {
+    text-align: left;
+    width: 50%;
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+.tableValue {
+    text-align: center;
+    width: 50%;
+}
+
+.currentLocation {
+    background-color: blue;
+    color: whitesmoke;
+    padding: 10%;
+    border-radius: 4rem;
+    margin-top: 10%;
+}
