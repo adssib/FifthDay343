@@ -41,7 +41,7 @@ const AutocompleteInput = ({ label, onSelect }) => {
 
         const delayDebounceFn = setTimeout(() => {
             fetchSuggestions();
-        }, 300); // Debounce API calls by 300ms
+        }, 1100); // Debounce API calls by 1.1s to not exceed the api calls limit
 
         return () => clearTimeout(delayDebounceFn);
     }, [query]);
