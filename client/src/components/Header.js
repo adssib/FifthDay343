@@ -81,6 +81,25 @@ const Header = () => {
                         >
                             Track
                         </Button>
+
+                        <Button
+                            component={Link}
+                            to="/submit-review"
+                            sx={{
+                                color: 'white',
+                                textTransform: 'uppercase',
+                                padding: '8px 16px',
+                                borderRadius: '8px',
+                                backgroundColor: '#26a69a', // teal color for Review button
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease',
+                                '&:hover': {
+                                    backgroundColor: '#00796b', // darken when hover
+                                },
+                            }}
+                        >
+                            Review
+                        </Button>
                     </Box>
                 </Toolbar>
             </AppBar>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/SuccessPage.css';
 
 const SuccessPage = () => {
   const { state } = useLocation();
@@ -22,9 +23,9 @@ const SuccessPage = () => {
   }, [state]);
 
   return (
-    <div className='normal-div'>
-      <h2>Payment Successful</h2>
-      <p>Tracking ID: {state.trackingId}</p>
+    <div className="success-page-container">
+      <h2>Payment Successful! </h2>
+      <p><strong>Tracking ID:</strong> {state?.trackingId}</p>
       <p>Your package is on its way!</p>
 
       <Link to="/" className="button">Go to Homepage</Link>

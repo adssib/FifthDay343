@@ -39,7 +39,9 @@ const CreditCardForm = ({ onSubmit }) => {
           required
         />
       </div>
-      <button type="submit">Submit Credit Card Payment</button>
+      <button type="submit"
+        className='pay-button'
+      >Submit Credit Card Payment</button>
     </form>
   );
 };

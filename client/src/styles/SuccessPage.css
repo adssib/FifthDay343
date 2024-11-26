@@ -1,0 +1,47 @@
+.success-page-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
+.success-page-container h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.success-page-container p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.success-page-container .button {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: lighter;
+    border-radius: 5px;
+    background-color: #000e8aa9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 150px;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    width: 100%;
+    margin: 10px;
+}
+
+.success-page-container .button:hover {
+    background-color: #000e8ae0;
+}

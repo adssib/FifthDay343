@@ -1,0 +1,99 @@
+.payment-page-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
+.payment-page-container h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.payment-page-container input,
+.payment-page-container select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.payment-page-container input:focus,
+.payment-page-container select:focus {
+    border-color: #2d9cdb;
+    outline: none;
+    box-shadow: 0 0 5px rgba(45, 156, 219, 0.5);
+}
+
+.payment-page-container .status-message {
+    font-size: 16px;
+    color: #f44336;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.payment-page-container .button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.payment-page-container .back-button {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: lighter;
+    border-radius: 5px;
+    background-color: #000e8aa9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    min-width: 120px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.payment-page-container .back-button:hover {
+    background-color: #000e8ae0;
+}
+
+.pay-button {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: lighter;
+    border-radius: 5px;
+    background-color: #000e8aa9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    min-width: 120px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.pay-button:hover {
+    background-color: #000e8ae0;
+}
+
+.payment-page-container select {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 12px;
+    font-size: 16px;
+}

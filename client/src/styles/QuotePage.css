@@ -1,0 +1,76 @@
+.quote-page-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.quote-page-container h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.quote-page-container p {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #555;
+}
+
+.quote-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2d9cdb;
+}
+
+.quote-page-container .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.quote-page-container .back-button {
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: lighter;
+    border-radius: 5px;
+    background-color: #939393;
+    text-transform: uppercase;
+    color: white;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 32%;
+    transition: background-color 0.3s;
+    margin-right: 20px;
+}
+
+.quote-page-container .back-button:hover {
+    background-color: #e53935;
+}
+
+.quote-page-container .proceed-button {
+    padding: 12px 25px;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 60%;
+    transition: background-color 0.3s;
+}
+
+.quote-page-container .proceed-button:hover {
+    background-color: #45a049;
+}

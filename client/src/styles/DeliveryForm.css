@@ -1,27 +1,90 @@
-h2 {
-    font-family: 'PlayfairDisplay', sans-serif;
-    color: #1700e5;
-    text-align: center;
+.forms {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  text-align: center;
 }
 
-button {
-    background-color: rgb(0, 35, 175);
-    color: whitesmoke;
+.forms h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-button:hover {
-    background-color: rgb(1, 18, 84);
-}
-
-input,
-select,
-button {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    box-sizing: border-box;
+.forms {
+  font-weight: 400;
+  color: #444;
+  margin-bottom: 10px;
+  text-align: left;
+  padding-left: 20px;
+  margin-top: 20px;
 }
 
 .map-container {
-    width: 100%;
+  margin-bottom: 30px;
+}
+
+.form-fields input,
+.form-fields select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.form-fields input:focus,
+.form-fields select:focus {
+  border-color: #2d9cdb;
+  outline: none;
+  box-shadow: 0 0 5px rgba(45, 156, 219, 0.5);
+}
+
+.leaflet-container {
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.forms .next-button {
+  padding: 15px 30px;
+  font-size: 15px;
+  font-weight: lighter;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #000e8aa9;
+  color: white;
+  width: 100%;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+  font-family: Arial;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.forms .next-button:hover {
+  background-color: #000e8ae0;
+}
+
+.forms select {
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 12px;
+  font-size: 16px;
+}
+
+.forms .error-message {
+  font-size: 16px;
+  color: #f44336;
+  font-weight: 500;
+  margin-top: 20px;
 }

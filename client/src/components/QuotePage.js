@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import '../styles/QuotePage.css';  
 
 const QuotePage = () => {
   const location = useLocation();
@@ -7,13 +8,13 @@ const QuotePage = () => {
   const { trackingId, quote } = location.state || {};
 
   return (
-    <div className='normal-div'>
+    <div className='quote-page-container'>
       <h2>Delivery Quote</h2>
-      <p>Tracking ID: {trackingId}</p>
-      <p>Quote: ${quote}</p>
+      <p><strong>Tracking ID:</strong> {trackingId}</p>
+      <p><strong>Quote:</strong> <span className="quote-value">${quote}</span></p>
 
-      <button onClick={() => navigate('/create-request')}>Back</button>
-      <button onClick={() => navigate('/payment/pay', { state: { trackingId, quote } })}>Proceed to Payment</button>
+      <button className="back-button" onClick={() => navigate('/create-request')}>Back</button>
+      <button className="proceed-button" onClick={() => navigate('/payment/pay', { state: { trackingId, quote } })}>Proceed to Payment</button>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/PaymentPage.css';  
 
 import CreditCardForm from './CreditCardForm';
 import PayPalForm from './PayPalForm';
@@ -66,7 +67,7 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className='normal-div'>
+    <div className="payment-page-container">
       <h2>Payment</h2>
       <form onSubmit={handlePayment}>
         <div>
@@ -109,9 +110,7 @@ const PaymentPage = () => {
           </select>
         </div>
 
-        <div>
-          <button type="submit">Pay</button>
-        </div>
+
       </form>
 
       {status && <p>{status}</p>}
