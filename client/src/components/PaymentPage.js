@@ -14,9 +14,7 @@ const PaymentPage = () => {
   const [status, setStatus] = useState('');
   const navigate = useNavigate();
 
-  const handlePayment = async (e, paymentDetailss) => {
-    e.preventDefault();
-
+  const handlePayment = async (paymentDetails) => {
     if (!name || (!email && !phone)) {
       setStatus("Please provide at least one contact detail (Email or Phone).");
       return;
@@ -27,18 +25,18 @@ const PaymentPage = () => {
       return;
     }
 
-    const paymentDetails = {
+    const paymentData = {
       trackingId: state?.trackingId,  // Ensure trackingId is part of state
       name,
       email,
       phone,
       paymentMethod,
-      paymentDetailss
+      ...paymentDetails
     };
 
-    console.log('Sending payment details:', paymentDetails);
+    console.log('Sending payment details:', paymentData);
     try {
-      const response = await axios.post('http://localhost:5002/api/payment/pay', paymentDetails);
+      const response = await axios.post('http://localhost:5002/api/payment/pay', paymentData);
 
       if (response.status === 200) {
         setStatus("Payment successful!");
@@ -59,10 +57,10 @@ const PaymentPage = () => {
 
   const renderPaymentForm = () => {
     if (paymentMethod === 'credit') {
-      return <CreditCardForm onSubmit={(details) => handlePayment(details)} />;
+      return <CreditCardForm onSubmit={handlePayment} />;
     }
     if (paymentMethod === 'paypal') {
-      return <PayPalForm onSubmit={(details) => handlePayment(details)} />;
+      return <PayPalForm onSubmit={handlePayment} />;
     }
     return null;
   };

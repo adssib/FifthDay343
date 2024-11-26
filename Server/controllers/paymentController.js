@@ -1,4 +1,4 @@
-const { deliveryRequests } = require('../controllers/deliveryController');  // Import the delivery requests
+const { deliveryRequests } = require('../repositories/DeliveryRequestRepository'); // Import the delivery requests from the repository
 const CreditCardStrategy = require('../models/CreditCardStrategy');
 const PayPalStrategy = require('../models/PayPalStrategy');
 
