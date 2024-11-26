@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineContent, TimelineConnector } from '@mui/lab';
+import { Button, TextField, Typography, Paper } from '@mui/material';
 import '../styles/TrackPackage.css';
 
 const TrackPackage = () => {
@@ -8,6 +10,15 @@ const TrackPackage = () => {
     const [error, setError] = useState(''); // Error message if tracking fails
     const [intervalId, setIntervalId] = useState(null); // Interval for refreshing position
     const [isDelivered, setIsDelivered] = useState(false); // Flag to track delivery status
+
+    const statuses = [
+        'Awaiting Pickup',
+        'Picked Up',
+        'In Transit',
+        'Arrived at Facility',
+        'Out for Delivery',
+        'Successfully Delivered'
+    ];
 
     // Simulated test package object
     const mockPackage = {
@@ -19,6 +30,7 @@ const TrackPackage = () => {
         position: { lat: 45.4981, lng: -73.5777 },
     };
 
+    // Simulate position change and update package status
     const simulatePositionChange = (details) => {
         if (!details) return details;
         const newDetails = { ...details };
@@ -32,7 +44,7 @@ const TrackPackage = () => {
                 newDetails.position.lat >= 45.5081 &&
                 newDetails.position.lng >= -73.5677
             ) {
-                newDetails.status = 'Delivered';
+                newDetails.status = 'Successfully Delivered';
                 newDetails.estimatedArrival = 'Delivered';
             }
         }
@@ -41,32 +53,24 @@ const TrackPackage = () => {
     };
 
     const refreshPackageDetails = async () => {
-        // Prevent refresh if the package is already delivered
-        if (isDelivered) {
-            return;
-        }
+        if (isDelivered) return;
 
         try {
             let newPackageDetails;
-
+            
             if (trackingId === mockPackage.trackingId) {
-                // Use simulated data for test package
                 newPackageDetails = simulatePositionChange(packageDetails || mockPackage);
             } else {
-                // Fetch package details from the server
-                const response = await axios.get(
-                    `http://localhost:5002/api/track/${trackingId}`
-                );
+                const response = await axios.get(`http://localhost:5002/api/track/${trackingId}`);
                 newPackageDetails = response.data;
             }
 
             setPackageDetails(newPackageDetails);
             setError('');
 
-            // Check if the package is delivered, and stop further refreshes
             if (newPackageDetails.status === 'Successfully Delivered' || newPackageDetails.status === 'Delivered') {
                 setIsDelivered(true);
-                clearInterval(intervalId);
+                clearInterval(intervalId); 
             }
         } catch (error) {
             setError('Package not found.');
@@ -75,58 +79,104 @@ const TrackPackage = () => {
     };
 
     const handleTrack = () => {
-        setIsDelivered(false); // Reset the delivered status
-        if (intervalId) clearInterval(intervalId); // Clear any existing interval
-        refreshPackageDetails(); // Fetch details immediately
-        const id = setInterval(refreshPackageDetails, 5000); // Start auto-refresh
+        setIsDelivered(false);
+        if (intervalId) clearInterval(intervalId);
+        refreshPackageDetails();
+        const id = setInterval(refreshPackageDetails, 5000);
         setIntervalId(id);
     };
 
     useEffect(() => {
-        // Cleanup on component unmount
         return () => clearInterval(intervalId);
     }, [intervalId]);
 
-    return (
-        <div className="normal-div">
-            <h2>Track Your Package</h2>
-            <input
-                type="text"
-                value={trackingId}
-                onChange={(e) => setTrackingId(e.target.value)} // Update tracking ID state
-                placeholder="Enter Tracking ID"
-            />
-            <button onClick={handleTrack}>Track</button>
+    // Get the index of the current status
+    const getTimelineIndex = (status) => {
+        return statuses.indexOf(status);
+    };
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+    // Get the index of the current status from the package details
+    const currentStatusIndex = packageDetails ? getTimelineIndex(packageDetails.status) : -1;
+
+    return (
+        <div className="track-package-container">
+            <Typography variant="h4" align="center" gutterBottom>
+                Track Your Package
+            </Typography>
+
+            <div className="track-input-container">
+                <TextField
+                    variant="outlined"
+                    label="Enter Tracking ID"
+                    value={trackingId}
+                    onChange={(e) => setTrackingId(e.target.value)}
+                    fullWidth
+                    className="track-input"
+                />
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleTrack}
+                    className="track-btn"
+                >
+                    Track
+                </Button>
+            </div>
+
+            {error && <Typography color="error" align="center">{error}</Typography>}
 
             {packageDetails && (
-                <div className="trackingDetails">
-                    <h3>Tracking Details</h3>
-                    <table className="trackingTable">
-                        <tbody>
-                            <tr>
-                                <td className="tableLabel"><strong>Tracking ID:</strong></td>
-                                <td className="tableValue">{packageDetails.trackingId}</td>
-                            </tr>
-                            <tr>
-                                <td className="tableLabel"><strong>Status:</strong></td>
-                                <td className="tableValue">{packageDetails.status}</td>
-                            </tr>
-                            <tr>
-                                <td className="tableLabel"><strong>Estimated Arrival:</strong></td>
-                                <td className="tableValue">{packageDetails.estimatedArrival}</td>
-                            </tr>
-                            <tr>
-                                <td className="tableLabel"><strong>Pickup Location:</strong></td>
-                                <td className="tableValue">{packageDetails.pickupLocation}</td>
-                            </tr>
-                            <tr>
-                                <td className="tableLabel"><strong>Dropoff Location:</strong></td>
-                                <td className="tableValue">{packageDetails.dropoffLocation}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div className="tracking-details-container">
+                    <Paper elevation={3} className="trackingDetails">
+                        <Typography variant="h5" gutterBottom>Tracking Details</Typography>
+                        <table className="trackingTable">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Tracking ID:</strong></td>
+                                    <td>{packageDetails.trackingId}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Status:</strong></td>
+                                    <td>{packageDetails.status}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Estimated Arrival:</strong></td>
+                                    <td>{packageDetails.estimatedArrival}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pickup Location:</strong></td>
+                                    <td>{packageDetails.pickupLocation}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dropoff Location:</strong></td>
+                                    <td>{packageDetails.dropoffLocation}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </Paper>
+
+                    {/* Timeline Container */}
+                    <Paper elevation={3} className="timelineDetails">
+                        <Timeline align="alternate">
+                            {statuses.map((status, index) => {
+                                const isCompleted = currentStatusIndex >= index;
+                                const isCurrent = currentStatusIndex === index;
+
+                                return (
+                                    <TimelineItem key={status}>
+                                        <TimelineSeparator>
+                                            <TimelineDot
+                                                color={isCurrent ? 'primary' : isCompleted ? 'secondary' : 'grey'}
+                                                className={isCurrent ? 'current-status' : ''}
+                                            />
+                                            {index < statuses.length - 1 && <TimelineConnector />}
+                                        </TimelineSeparator>
+                                        <TimelineContent>{status}</TimelineContent>
+                                    </TimelineItem>
+                                );
+                            })}
+                        </Timeline>
+                    </Paper>
                 </div>
             )}
         </div>
