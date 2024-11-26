@@ -7,6 +7,7 @@ const TrackPackage = () => {
     const [packageDetails, setPackageDetails] = useState(null); // Stores package details fetched from the backend
     const [error, setError] = useState(''); // Error message if tracking fails
     const [intervalId, setIntervalId] = useState(null); // Interval for refreshing position
+    const [isDelivered, setIsDelivered] = useState(false); // Flag to track delivery status
 
     // Simulated test package object
     const mockPackage = {
@@ -40,22 +41,33 @@ const TrackPackage = () => {
     };
 
     const refreshPackageDetails = async () => {
+        // Prevent refresh if the package is already delivered
+        if (isDelivered) {
+            return;
+        }
+
         try {
+            let newPackageDetails;
+
             if (trackingId === mockPackage.trackingId) {
                 // Use simulated data for test package
-                setPackageDetails((prevDetails) =>
-                    simulatePositionChange(prevDetails || mockPackage)
+                newPackageDetails = simulatePositionChange(packageDetails || mockPackage);
+            } else {
+                // Fetch package details from the server
+                const response = await axios.get(
+                    `http://localhost:5002/api/track/${trackingId}`
                 );
-                setError('');
-                return;
+                newPackageDetails = response.data;
             }
 
-            // Fetch package details from the server
-            const response = await axios.get(
-                `http://localhost:5002/api/track/${trackingId}`
-            );
-            setPackageDetails(response.data);
+            setPackageDetails(newPackageDetails);
             setError('');
+
+            // Check if the package is delivered, and stop further refreshes
+            if (newPackageDetails.status === 'Successfully Delivered' || newPackageDetails.status === 'Delivered') {
+                setIsDelivered(true);
+                clearInterval(intervalId);
+            }
         } catch (error) {
             setError('Package not found.');
             setPackageDetails(null);
@@ -63,6 +75,7 @@ const TrackPackage = () => {
     };
 
     const handleTrack = () => {
+        setIsDelivered(false); // Reset the delivered status
         if (intervalId) clearInterval(intervalId); // Clear any existing interval
         refreshPackageDetails(); // Fetch details immediately
         const id = setInterval(refreshPackageDetails, 5000); // Start auto-refresh
@@ -89,38 +102,32 @@ const TrackPackage = () => {
 
             {packageDetails && (
                 <div className="trackingDetails">
-                <h3>Tracking Details</h3>
-                <table className="trackingTable">
-                    <tbody>
-                        <tr>
-                            <td className="tableLabel"><strong>Tracking ID:</strong></td>
-                            <td className="tableValue">{packageDetails.trackingId}</td>
-                        </tr>
-                        <tr>
-                            <td className="tableLabel"><strong>Status:</strong></td>
-                            <td className="tableValue">{packageDetails.status}</td>
-                        </tr>
-                        <tr>
-                            <td className="tableLabel"><strong>Estimated Arrival:</strong></td>
-                            <td className="tableValue">{packageDetails.estimatedArrival}</td>
-                        </tr>
-                        <tr>
-                            <td className="tableLabel"><strong>Pickup Location:</strong></td>
-                            <td className="tableValue">{packageDetails.pickupLocation}</td>
-                        </tr>
-                        <tr>
-                            <td className="tableLabel"><strong>Dropoff Location:</strong></td>
-                            <td className="tableValue">{packageDetails.dropoffLocation}</td>
-                        </tr>
-                        <tr className='currentLocation'>
-                            <td className="tableLabel"><strong>Current Location:</strong></td>
-                            <td className="tableValue">
-                                {packageDetails.position.lat.toFixed(4)}, {packageDetails.position.lng.toFixed(4)}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>            
+                    <h3>Tracking Details</h3>
+                    <table className="trackingTable">
+                        <tbody>
+                            <tr>
+                                <td className="tableLabel"><strong>Tracking ID:</strong></td>
+                                <td className="tableValue">{packageDetails.trackingId}</td>
+                            </tr>
+                            <tr>
+                                <td className="tableLabel"><strong>Status:</strong></td>
+                                <td className="tableValue">{packageDetails.status}</td>
+                            </tr>
+                            <tr>
+                                <td className="tableLabel"><strong>Estimated Arrival:</strong></td>
+                                <td className="tableValue">{packageDetails.estimatedArrival}</td>
+                            </tr>
+                            <tr>
+                                <td className="tableLabel"><strong>Pickup Location:</strong></td>
+                                <td className="tableValue">{packageDetails.pickupLocation}</td>
+                            </tr>
+                            <tr>
+                                <td className="tableLabel"><strong>Dropoff Location:</strong></td>
+                                <td className="tableValue">{packageDetails.dropoffLocation}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             )}
         </div>
     );
