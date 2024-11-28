@@ -11,6 +11,7 @@
 | Amine Arrachid | 40263585 | Amine-Arrachid | 
 | Younes Bouhaba | 40205816 | younesbhb| 
 
+[GROUP REPORT] (https://docs.google.com/document/d/1gZziDcTJ4RXqzc_nXO26-kEfMW_Z5oIyIosrV2t0d04/edit?usp=sharing)
 
 [Notes on the things we need to implement](https://docs.google.com/document/d/1_56b5Tw7WpXRsGlgWD4dNUfJ6ctPsxhLtmP1D6x7DXI/edit?usp=sharing)
 
