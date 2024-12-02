@@ -7,6 +7,9 @@ const QuoteCalculator = require('./QuoteCalculator');
 const DeliveryNotifier = require('../observers/DeliveryNotifier');
 const EmailNotification = require('../observers/EmailNotification');
 const SMSNotification = require('../observers/SMSNotification');
+const CreditCardStrategy = require('../models/CreditCardStrategy');
+const PayPalStrategy = require('../models/PayPalStrategy');
+
 
 
 class DeliveryServiceFacade {
@@ -73,8 +76,8 @@ class DeliveryServiceFacade {
         return { trackingId, quote };
     }
 
-    // Process payment for a delivery request
-    processPayment(data) {
+
+    async processPayment(data) {
         const { trackingId, name, email, phone, paymentMethod } = data;
 
         console.log('Received payment details:', data);
@@ -84,17 +87,34 @@ class DeliveryServiceFacade {
             throw new Error('Missing required fields');
         }
 
-        // Validate the payment method
-        const validPaymentMethods = ['credit', 'paypal'];
-        if (!validPaymentMethods.includes(paymentMethod)) {
-            throw new Error('Invalid payment method. Please choose a valid payment option.');
-        }
-
         // Find the delivery request
         const deliveryRequest = this.findDeliveryRequest(trackingId);
 
         console.log('Found delivery request:', deliveryRequest);
 
+        // Select the appropriate payment strategy
+        let strategy;
+        if (paymentMethod === 'credit') {
+            strategy = new CreditCardStrategy();
+        } else if (paymentMethod === 'paypal') {
+            strategy = new PayPalStrategy();
+        } else {
+            throw new Error('Invalid payment method. Please choose either "credit" or "paypal".');
+        }
+
+        // Execute the selected payment strategy
+        let paymentResult;
+        try {
+            paymentResult = await strategy.processPayment({ name, email, phone });
+        } catch (error) {
+            throw new Error('Payment processing error: ' + error.message);
+        }
+
+        if (!paymentResult.success) {
+            throw new Error('Payment failed: ' + paymentResult.error);
+        }
+
+        // Proceed with updating the delivery request
         // Update customer details
         deliveryRequest.customer = new Customer({ name, email, phone });
 
@@ -104,15 +124,14 @@ class DeliveryServiceFacade {
             console.log("EmailNotification observer attached.");
         }
 
-
         if (phone && !this.notifier.observers.includes(this.smsObserver)) {
             this.notifier.attach(this.smsObserver);
             console.log("SMSNotification observer attached.");
         }
 
-
-        // Process the payment
-        deliveryRequest.payment.processPayment(paymentMethod);
+        // Update the payment status
+        deliveryRequest.payment.paymentMethod = paymentMethod;
+        deliveryRequest.payment.status = 'Paid';
 
         // Update tracking status
         deliveryRequest.tracking.updateStatus('Shipped');
