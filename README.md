@@ -13,9 +13,7 @@
 
 [SPRINT 4 REPORT](https://docs.google.com/document/d/17ztM9BEHBD7MKJ_EEqI-uRcFl_Y7ueCVzaFc6foDKMc/edit?usp=sharing)
 
-[FINAL GROUP REPORT - version with right template](https://docs.google.com/document/d/1Js4FX10emDwlbqy2rcB_2791cuMeI44MrT0Rm-vPWvE/edit?usp=sharing)
-
-[FINAL GROUP REPORT](https://docs.google.com/document/d/1gZziDcTJ4RXqzc_nXO26-kEfMW_Z5oIyIosrV2t0d04/edit?usp=sharing)
+[FINAL GROUP REPORT ](https://docs.google.com/document/d/1Js4FX10emDwlbqy2rcB_2791cuMeI44MrT0Rm-vPWvE/edit?usp=sharing)
 
 [Notes on the things we need to implement](https://docs.google.com/document/d/1_56b5Tw7WpXRsGlgWD4dNUfJ6ctPsxhLtmP1D6x7DXI/edit?usp=sharing)
 
